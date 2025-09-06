@@ -38,7 +38,7 @@ class Player(CircleShape):
         if keys[pygame.K_SPACE]:
             if self.timer > 0:
                 "You have to wait for your connons to cooldown"
-            elif self.timer <= 0:
+            else:
                 self.shoot()
 
     def move(self,dt):
