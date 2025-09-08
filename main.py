@@ -5,7 +5,8 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from circleshape import CircleShape
-from shot import Shot 
+from shot import Shot
+from textdisplay import TextDisplay
 
 def main():
     pygame.init()
@@ -30,7 +31,13 @@ def main():
     dt = 0
     player = Player((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2))
     asteroid_field = AsteroidField()  
-   
+    base_font = pygame.font.SysFont(None,16)
+    font = pygame.font.SysFont("comicsans",30)
+    score = 0
+    score_board = TextDisplay("Score: ",0,font, True, (255,255,255), 20,20)
+
+   # def draw_count(text,font,text_col,x,y):
+
 
     while running:
         for event in pygame.event.get():
@@ -40,6 +47,7 @@ def main():
         dt = time_track.tick(59) / 1000    
         screen.fill((0, 0, 0))
         updatable.update(dt)
+        score_board.draw(screen) 
         for objects in drawable:
             objects.draw(screen)
         pygame.display.flip()
@@ -51,6 +59,8 @@ def main():
                 if bullet.collision(asteroid):
                     bullet.kill()
                     asteroid.split()
+                    score += 1
+                    score_board.update_value(score)
         
 
 if __name__ == "__main__":
